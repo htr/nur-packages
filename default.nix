@@ -14,8 +14,11 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  gospider = pkgs.callPackage ./pkgs/gospider { };
+  ffuf = pkgs.callPackage ./pkgs/ffuf { };
+  httpstat = pkgs.callPackage ./pkgs/httpstat { };
+  easy-novnc = pkgs.callPackage ./pkgs/easy-novnc { };
+  idafree = pkgs.callPackage ./pkgs/idafree { };
+  burpsuite = pkgs.callPackage ./pkgs/burpsuite { };
 }
 
