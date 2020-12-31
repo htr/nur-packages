@@ -15,7 +15,6 @@ let
       pwntools
       ipython
       ROPGadget
-      r2pipe
       ropper
       unicorn
       z3
