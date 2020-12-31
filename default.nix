@@ -6,21 +6,22 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 let
-  pwnPackages = with pkgs; python-packages: with python-packages; [
-    pwntools
-    ipython
-    ROPGadget
-    r2pipe
-    ropper
-    unicorn
-    z3
-    capstone
-  ];
-in
-rec {
+  pwnPackages = with pkgs;
+    python-packages:
+    with python-packages; [
+      pwntools
+      ipython
+      ROPGadget
+      r2pipe
+      ropper
+      unicorn
+      z3
+      capstone
+    ];
+in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -34,6 +35,11 @@ rec {
   burpsuite = pkgs.callPackage ./pkgs/burpsuite { };
   pwnPythonEnv = pkgs.python3.withPackages pwnPackages;
   pwnGdb = pkgs.gdb.override { python3 = pwnPythonEnv; };
-  inherit (pkgs.callPackage ./pkgs/radare2 { python3 = pwnPythonEnv; pythonBindings = true; lua = pkgs.lua5; }) radare2;
+  inherit (pkgs.callPackage ./pkgs/radare2 {
+    python3 = pwnPythonEnv;
+    pythonBindings = true;
+    lua = pkgs.lua5;
+  })
+    radare2;
 }
 
